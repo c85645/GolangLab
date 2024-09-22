@@ -18,24 +18,16 @@ import (
 	"math"
 )
 
-const DELTA = 0.0000001
-const INITIAL_Z = 100.0
-
-func Sqrt(x float64) (z float64) {
-	z = INITIAL_Z
-
-	step := func() float64 {
-		return z - (z*z-x)/(2*z)
+func Sqrt(x float64) float64 {
+	z := 100.0
+	for math.Abs(z-math.Sqrt(x)) > 0.000000000001 {
+		z = (z - (z*z-x)/(2*z))
 	}
-
-	for zz := step(); math.Abs(zz-z) > DELTA; {
-		z = zz
-		zz = step()
-	}
-	return
+	return z
 }
 
 func main() {
-	fmt.Println(Sqrt(2))
-	fmt.Println(math.Sqrt(2))
+	n := 2.0
+	fmt.Println(Sqrt(n))
+	fmt.Println(math.Sqrt(n))
 }
